@@ -1,12 +1,10 @@
 import { useState, useEffect } from "react";
-import { useTheme } from "../../context/ThemeContext";
 import {
   fetchOpenContactMsgsWithPaginationAndSort,
   updateContactStatus,
 } from "../../services/contactService";
 
 const ContactMessages = () => {
-  const { theme } = useTheme();
   const [messages, setMessages] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [expandedMessageId, setExpandedMessageId] = useState(null);
