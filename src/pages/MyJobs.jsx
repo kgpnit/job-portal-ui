@@ -1,11 +1,9 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { useTheme } from '../context/ThemeContext';
 import { useJobsData } from '../contexts/JobsDataContext';
 
 const MyJobs = () => {
-  const { theme } = useTheme();
   const { user, isEmployer, isAuthenticated } = useAuth();
   const { forceRefresh } = useJobsData();
   const [jobs, setJobs] = useState([]);

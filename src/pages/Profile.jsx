@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { getProfile, updateProfile as updateProfileApi, getProfilePictureUrl } from '../services/profileService';
 
 const Profile = () => {
-  const { user, updateProfile, updateProfileComplete, isJobSeeker, isLoading: authLoading } = useAuth();
+  const { user, updateProfileComplete, isJobSeeker, isLoading: authLoading } = useAuth();
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({

@@ -18,7 +18,6 @@ const Companies = () => {
   // Get unique industries, sizes, and locations for filters
   const industries = [...new Set(companies.map(company => company.industry))].sort()
   const sizes = [...new Set(companies.map(company => company.size))].sort()
-  const locations = [...new Set(companies.flatMap(company => company.locations))].sort()
 
   // Enhanced companies with job counts
   const enhancedCompanies = useMemo(() => {
