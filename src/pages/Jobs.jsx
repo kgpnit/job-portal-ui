@@ -40,10 +40,14 @@ const Jobs = () => {
     const searchParam = searchParams.get('search')
     const locationParam = searchParams.get('location')
     const companyParam = searchParams.get('company')
-    
+    const salaryMinParam = searchParams.get('salaryMin')
+    const salaryMaxParam = searchParams.get('salaryMax')
+
     if (searchParam) setSearchTerm(searchParam)
     if (locationParam) setLocationFilter(locationParam)
     if (companyParam) setSearchTerm(companyParam) // Search by company name
+    if (salaryMinParam) setSalaryMinFilter(salaryMinParam)
+    if (salaryMaxParam) setSalaryMaxFilter(salaryMaxParam)
   }, [searchParams])
 
   const filteredJobs = useMemo(() => {
