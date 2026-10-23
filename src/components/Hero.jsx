@@ -4,12 +4,16 @@ import { useNavigate } from "react-router-dom";
 const Hero = () => {
   const [jobSearch, setJobSearch] = useState("");
   const [location, setLocation] = useState("");
+  const [salaryMin, setSalaryMin] = useState("");
+  const [salaryMax, setSalaryMax] = useState("");
   const navigate = useNavigate();
 
   const handleSearch = () => {
     const searchParams = new URLSearchParams();
     if (jobSearch) searchParams.set("search", jobSearch);
     if (location) searchParams.set("location", location);
+    if (salaryMin) searchParams.set("salaryMin", salaryMin);
+    if (salaryMax) searchParams.set("salaryMax", salaryMax);
 
     navigate(`/jobs?${searchParams.toString()}`);
   };
@@ -152,6 +156,29 @@ const Hero = () => {
                         Search Jobs
                       </div>
                     </button>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
+                    <input
+                      type="number"
+                      min="0"
+                      placeholder="Min Salary ($)"
+                      aria-label="Minimum salary"
+                      className="w-full px-6 py-4 border border-gray-200 dark:border-gray-600 rounded-2xl focus:ring-4 focus:ring-primary-500/20 focus:border-primary-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 font-medium transition-all duration-300 hover:shadow-lg"
+                      value={salaryMin}
+                      onChange={(e) => setSalaryMin(e.target.value)}
+                      onKeyPress={handleKeyPress}
+                    />
+                    <input
+                      type="number"
+                      min="0"
+                      placeholder="Max Salary ($)"
+                      aria-label="Maximum salary"
+                      className="w-full px-6 py-4 border border-gray-200 dark:border-gray-600 rounded-2xl focus:ring-4 focus:ring-primary-500/20 focus:border-primary-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 font-medium transition-all duration-300 hover:shadow-lg"
+                      value={salaryMax}
+                      onChange={(e) => setSalaryMax(e.target.value)}
+                      onKeyPress={handleKeyPress}
+                    />
                   </div>
                 </div>
               </div>
