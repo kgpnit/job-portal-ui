@@ -16,6 +16,7 @@ const Jobs = () => {
   const [experienceFilter, setExperienceFilter] = useState('')
   const [workTypeFilter, setWorkTypeFilter] = useState('')
   const [salaryMinFilter, setSalaryMinFilter] = useState('')
+  const [salaryMaxFilter, setSalaryMaxFilter] = useState('')
   const [remoteOnly, setRemoteOnly] = useState(false)
   const [sortBy, setSortBy] = useState('recent')
   const [currentPage, setCurrentPage] = useState(1)
@@ -53,10 +54,12 @@ const Jobs = () => {
       const matchesCategory = !categoryFilter || job.category === categoryFilter
       const matchesExperience = !experienceFilter || job.experienceLevel === experienceFilter
       const matchesWorkType = !workTypeFilter || job.workType === workTypeFilter
-      const matchesSalary = !salaryMinFilter || job.salary.min >= parseInt(salaryMinFilter)
+      // A job matches when its salary band overlaps the selected range
+      const matchesSalary = (!salaryMinFilter || job.salary.max >= parseInt(salaryMinFilter)) &&
+                            (!salaryMaxFilter || job.salary.min <= parseInt(salaryMaxFilter))
       const matchesRemote = !remoteOnly || job.remote
 
-      return matchesSearch && matchesLocation && matchesCategory && 
+      return matchesSearch && matchesLocation && matchesCategory &&
              matchesExperience && matchesWorkType && matchesSalary && matchesRemote
     })
 
@@ -79,7 +82,7 @@ const Jobs = () => {
     }
 
     return filtered
-  }, [allJobs, searchTerm, locationFilter, categoryFilter, experienceFilter, workTypeFilter, salaryMinFilter, remoteOnly, sortBy])
+  }, [allJobs, searchTerm, locationFilter, categoryFilter, experienceFilter, workTypeFilter, salaryMinFilter, salaryMaxFilter, remoteOnly, sortBy])
 
   const totalPages = Math.ceil(filteredJobs.length / jobsPerPage)
   const paginatedJobs = filteredJobs.slice((currentPage - 1) * jobsPerPage, currentPage * jobsPerPage)
@@ -91,6 +94,7 @@ const Jobs = () => {
     setExperienceFilter('')
     setWorkTypeFilter('')
     setSalaryMinFilter('')
+    setSalaryMaxFilter('')
     setRemoteOnly(false)
     setCurrentPage(1)
   }
@@ -292,13 +296,27 @@ const Jobs = () => {
                   <option value="On-site">On-site</option>
                 </select>
 
-                <input
-                  type="number"
-                  placeholder="Min Salary ($)"
-                  className="px-4 py-3 border border-gray-200 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-4 focus:ring-primary-500/20 focus:border-primary-500 placeholder-gray-500 dark:placeholder-gray-400"
-                  value={salaryMinFilter}
-                  onChange={(e) => setSalaryMinFilter(e.target.value)}
-                />
+                <div className="flex items-center gap-2">
+                  <input
+                    type="number"
+                    min="0"
+                    placeholder="Min Salary ($)"
+                    aria-label="Minimum salary"
+                    className="w-full min-w-0 px-4 py-3 border border-gray-200 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-4 focus:ring-primary-500/20 focus:border-primary-500 placeholder-gray-500 dark:placeholder-gray-400"
+                    value={salaryMinFilter}
+                    onChange={(e) => setSalaryMinFilter(e.target.value)}
+                  />
+                  <span className="text-gray-500 dark:text-gray-400">–</span>
+                  <input
+                    type="number"
+                    min="0"
+                    placeholder="Max Salary ($)"
+                    aria-label="Maximum salary"
+                    className="w-full min-w-0 px-4 py-3 border border-gray-200 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-4 focus:ring-primary-500/20 focus:border-primary-500 placeholder-gray-500 dark:placeholder-gray-400"
+                    value={salaryMaxFilter}
+                    onChange={(e) => setSalaryMaxFilter(e.target.value)}
+                  />
+                </div>
               </div>
 
               {/* Remote Toggle and Actions */}
