@@ -1,5 +1,9 @@
 {
   "enabledPlugins": {
     "commit-commands@anthropic-plugin-directory": true
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/statusline-command.sh\""
   }
 }
