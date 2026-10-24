@@ -219,6 +219,25 @@ const Hero = () => {
                 </div>
               </div>
             </div>
+
+            <div className="mt-12">
+              <span className="relative inline-block group">
+                <a
+                  href="#about-us"
+                  aria-describedby="about-us-tooltip"
+                  className="text-lg font-semibold text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 underline underline-offset-4 transition-colors"
+                >
+                  About Us
+                </a>
+                <span
+                  id="about-us-tooltip"
+                  role="tooltip"
+                  className="pointer-events-none absolute bottom-full left-1/2 -translate-x-1/2 mb-2 whitespace-nowrap rounded-lg bg-gray-900 dark:bg-white px-3 py-1.5 text-sm font-medium text-white dark:text-gray-900 shadow-lg opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity duration-200"
+                >
+                  gopik
+                </span>
+              </span>
+            </div>
           </div>
         </div>
       </div>
